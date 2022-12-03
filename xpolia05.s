@@ -23,8 +23,14 @@ params_sys5:    .space  8   ; misto pro ulozeni adresy pocatku
                 ; r4 nacteny znak
                 
 reginit:
-                addi r16, r0, 16
-                addi r18, r0, -15           
+                daddi r12, r0, 0               
+                daddi r5, r0, 0
+                daddi r16, r0, 0
+                daddi r18, r0, 0
+                daddi r4, r0, 0               ;preventivne nulovanie registrov
+
+                daddi r16, r0, 16
+                daddi r18, r0, -15           
 
 iterate:
                 lb   r4, login(r5)            ;nacteni prvniho znaku z vstupu
@@ -56,9 +62,9 @@ store:
                 b iterate
                 
 foundnumeric:
-                addi  r5, r5, 1      ;index++
-                sb    r0, cipher(r5) ;vlozenie nuly na koniec zapisovanych dat
-                daddi r4, r0, cipher ;adresa cipher: do r4
+                addi  r5, r5, 1               ;index++
+                sb    r0, cipher(r5)          ;vlozenie nuly na koniec zapisovanych dat
+                daddi r4, r0, cipher          ;adresa cipher: do r4
                 jal   print_string
 
                 syscall 0
